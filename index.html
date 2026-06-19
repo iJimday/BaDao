@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="这是一个很霸道的网页。">
+	<meta name="keywords" content="霸道,可爱,阿戴先生">
+    <meta name="author" content="阿戴先生">
+	<title>这是一个很霸道的网页 - 阿戴先生</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css"><!--主体CSS-->
+	<link rel="stylesheet" type="text/css" href="assets/css/all.min.css"><!--fontawesome-->
+</head>
+<body>
+
+	<!-- ==================== 霸道首页 ==================== -->
+	<div id="landing-page">
+		<div class="bg-pulse"></div>
+		<div class="bg-pulse"></div>
+		<div class="crack-lines">
+			<div class="crack-line"></div><div class="crack-line"></div><div class="crack-line"></div><div class="crack-line"></div><div class="crack-line"></div>
+		</div>
+		<div class="warning-stripes"></div>
+		<div class="warning-stripes bottom"></div>
+		<div class="spark-container" id="spark-container"></div>
+		<div class="hidden-hint">🤫 其实里面很可爱...</div>
+
+		<div class="landing-content">
+			<div class="danger-icon-row" aria-hidden="true">
+				<span>⚠️</span><span>💀</span><span>⚠️</span>
+			</div>
+			<h1 class="main-title">这是一个很霸道的网页</h1>
+			<p class="sub-title">⚡ 警告：内有大量可爱攻击 ⚡</p>
+			<div class="enter-btn-wrapper">
+				<button class="enter-btn" id="enter-btn" aria-label="进入可爱世界" tabindex="0">胆敢进入？</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- ==================== 加载指示器 ==================== -->
+	<div class="loading-overlay" id="loading-overlay">
+		<span class="loading-spinner" aria-hidden="true">🌸</span>
+	</div>
+
+	<!-- ==================== 可爱内容页 ==================== -->
+	<div id="cute-page">
+		<div class="cute-light-orbs">
+			<div class="cute-light-orb"></div><div class="cute-light-orb"></div><div class="cute-light-orb"></div><div class="cute-light-orb"></div>
+		</div>
+		<div class="falling-container" id="falling-container"></div>
+
+		<div class="cute-header">
+			<div class="header-emoji-row" aria-hidden="true">🌸 ✨ 🐾 ✨ 🌸</div>
+			<h1>✨ 可爱能量站 ✨</h1>
+			<p class="subtitle-cute">🐾 摸摸小动物们吧 ~ 它们都很温柔哦 ♡</p>
+		</div>
+
+		<!-- 控制按钮 -->
+		<div class="controls-row">
+			<button class="cute-btn active-mode" id="random-btn" aria-label="随机显示十二只小动物" aria-pressed="true" tabindex="0">
+				🎲 随机小动物
+			</button>
+			<button class="cute-btn" id="all-btn" aria-label="显示所有小动物" aria-pressed="false" tabindex="0">
+				📋 全部小动物
+			</button>
+			<button class="cute-btn" id="zodiac-btn" aria-label="显示十二生肖动物" aria-pressed="false" tabindex="0">
+				🐲 十二生肖
+			</button>
+		</div>
+
+		<div class="cute-cards-grid" id="cute-cards-grid" role="list" aria-label="动物卡片列表"></div>
+
+		<div class="back-btn-wrapper">
+			<button class="back-btn" id="back-btn" aria-label="返回霸道首页" tabindex="0">🔙 回到霸道模式</button>
+		</div>
+
+		<div class="cute-footer">
+			🎀 其实也没有那么霸道嘛 ~ 🎀<br>
+			© <script>document.write(new Date().getFullYear());</script>&nbsp;<a href="https://www.jimday.cn" target="_blank" rel="noopener">阿戴先生</a> · 版权所有
+		</div>
+	</div>
+
+    <script src="assets/js/main.js" defer></script>
+</body>
+</html>

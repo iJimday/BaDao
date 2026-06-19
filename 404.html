@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面走丢了 | 这是一个很霸道的网页</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+    <style>
+        :root {
+            --bg-dark: #0a0000;
+            --red-glow: #ff1a1a;
+            --orange-fire: #ff6600;
+            --gold: #ffc107;
+            --cute-pink: #ffb3ba;
+            --cute-peach: #ffc3a0;
+            --cute-cream: #fff8f0;
+            --card-shadow: 0 8px 32px rgba(180, 140, 140, 0.18);
+            --card-shadow-hover: 0 16px 40px rgba(180, 140, 140, 0.32);
+            --focus-glow: 0 0 0 3px rgba(240, 160, 160, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+            min-height: 100vh;
+            background: #060101;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: default;
+            position: relative;
+        }
+
+        /* 键盘焦点 */
+        :focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 140, 0.55);
+            border-radius: 10px;
+        }
+        .home-btn:focus-visible,
+        .cute-404-btn:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 100, 100, 0.6);
+            border-color: #ff8a8a;
+            outline: none;
+        }
+        .mini-animal:focus-visible {
+            border-color: #ffb3ba;
+            box-shadow: 0 0 0 3px rgba(255, 160, 160, 0.5);
+            transform: translateY(-8px) scale(1.15);
+            outline: none;
+        }
+
+        /* 减少动画偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .bg-pulse-404,
+            .spark-container-404,
+            .falling-container-404,
+            .crack-lines-404 {
+                display: none !important;
+            }
+            .title-404 {
+                animation: none !important;
+                text-shadow: 0 0 30px #ff2200, 0 0 70px #ff4400, 0 0 110px #cc0000;
+            }
+            .mini-animal.animating {
+                animation: none !important;
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            .lost-emoji-row {
+                animation: none !important;
+            }
+        }
+
+        /* ==================== 背景层 ==================== */
+        .bg-gradient-404 {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 50% 35%, #1c0000 0%, #0a0000 45%, #020000 100%),
+                radial-gradient(circle at 35% 55%, rgba(255, 120, 100, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 65% 50%, rgba(255, 80, 60, 0.05) 0%, transparent 55%),
+                radial-gradient(circle at 50% 70%, rgba(255, 150, 120, 0.04) 0%, transparent 60%);
+            animation: bgShift 8s ease-in-out infinite;
+            will-change: opacity;
+        }
+        @keyframes bgShift {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.85;
+            }
+        }
+
+        .bg-pulse-404 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 30, 30, 0.1) 0%, transparent 70%);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: bgPulse404 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform, opacity;
+        }
+        .bg-pulse-404:nth-child(2) {
+            width: 320px;
+            height: 320px;
+            animation-delay: -2s;
+            background: radial-gradient(circle, rgba(255, 100, 60, 0.12) 0%, transparent 70%);
+            top: 45%;
+        }
+        @keyframes bgPulse404 {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.55;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.9;
+            }
+        }
+
+        /* 裂缝线条 */
+        .crack-lines-404 {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+        }
+        .crack-line-404 {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(255, 50, 15, 0.6), transparent);
+            height: 1.2px;
+            transform-origin: left center;
+            animation: crackFlicker404 5s ease-in-out infinite;
+            will-change: opacity;
+        }
+        .crack-line-404:nth-child(1) {
+            top: 12%;
+            left: 8%;
+            width: 35%;
+            transform: rotate(-7deg);
+            animation-delay: 0s;
+        }
+        .crack-line-404:nth-child(2) {
+            top: 22%;
+            left: 55%;
+            width: 28%;
+            transform: rotate(14deg);
+            animation-delay: -1.5s;
+        }
+        .crack-line-404:nth-child(3) {
+            top: 60%;
+            left: 10%;
+            width: 32%;
+            transform: rotate(-4deg);
+            animation-delay: -2.8s;
+        }
+        .crack-line-404:nth-child(4) {
+            top: 68%;
+            left: 58%;
+            width: 25%;
+            transform: rotate(11deg);
+            animation-delay: -3.5s;
+        }
+        .crack-line-404:nth-child(5) {
+            top: 35%;
+            left: 72%;
+            width: 18%;
+            transform: rotate(-18deg);
+            animation-delay: -0.9s;
+        }
+        .crack-line-404:nth-child(6) {
+            top: 78%;
+            left: 30%;
+            width: 22%;
+            transform: rotate(6deg);
+            animation-delay: -4.2s;
+        }
+        @keyframes crackFlicker404 {
+            0%,
+            65%,
+            100% {
+                opacity: 0.15;
+            }
+            70%,
+            82% {
+                opacity: 0.85;
+            }
+            75% {
+                opacity: 0.3;
+            }
+        }
+
+        /* 顶部/底部警告条纹 */
+        .warning-stripes-404 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(-45deg,
+                    #ffbb00,
+                    #ffbb00 16px,
+                    #1a1a1a 16px,
+                    #1a1a1a 32px);
+            background-size: 32px 8px;
+            z-index: 2;
+            pointer-events: none;
+            animation: stripeSlide404 1.2s linear infinite;
+        }
+        .warning-stripes-404.bottom {
+            top: auto;
+            bottom: 0;
+            animation-direction: reverse;
+        }
+        @keyframes stripeSlide404 {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 32px 0;
+            }
+        }
+
+        /* 粒子容器 */
+        .spark-container-404 {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .spark-particle-404 {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkUp404 1.6s ease-out forwards;
+            box-shadow: 0 0 8px #ff4400, 0 0 16px #ff2200;
+            will-change: transform, opacity;
+        }
+        @keyframes sparkUp404 {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 1;
+            }
+            55% {
+                opacity: 0.75;
+            }
+            100% {
+                transform: translateY(-350px) translateX(var(--drift)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .falling-container-404 {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .falling-item-404 {
+            position: absolute;
+            top: -40px;
+            pointer-events: none;
+            animation: fallDown404 var(--fall-duration) linear forwards;
+            font-size: var(--fall-size);
+            opacity: 0.7;
+            filter: drop-shadow(0 0 5px rgba(255, 180, 160, 0.45));
+            will-change: transform, opacity;
+        }
+        @keyframes fallDown404 {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 0.8;
+            }
+            65% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(105vh) rotate(var(--fall-rotate)) translateX(var(--fall-drift));
+                opacity: 0;
+            }
+        }
+
+        /* ==================== 主内容 ==================== */
+        .main-content-404 {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        /* 404 大标题 */
+        .title-404 {
+            font-size: clamp(5rem, 13vw, 10rem);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            color: #ffddcc;
+            text-shadow:
+                0 0 25px #ff1a1a,
+                0 0 55px #ff3300,
+                0 0 100px #ff0000,
+                0 0 160px #cc0000,
+                0 0 220px #990000,
+                0 6px 12px rgba(0, 0, 0, 0.85);
+            line-height: 1;
+            animation: titleShake404 3s ease-in-out infinite;
+            position: relative;
+            will-change: transform;
+            transition: all 0.15s ease;
+            cursor: default;
+        }
+        .title-404:hover {
+            text-shadow:
+                0 0 35px #ff3333,
+                0 0 70px #ff4400,
+                0 0 130px #ff1100,
+                0 0 200px #dd0000,
+                0 0 260px #aa0000,
+                0 6px 14px rgba(0, 0, 0, 0.9);
+        }
+        .title-404:active {
+            transform: scale(0.95);
+            transition: all 0.08s ease;
+        }
+        @keyframes titleShake404 {
+            0%,
+            100% {
+                transform: translateX(0) rotate(0);
+            }
+            8% {
+                transform: translateX(-4px) rotate(-0.4deg);
+            }
+            16% {
+                transform: translateX(4px) rotate(0.4deg);
+            }
+            24% {
+                transform: translateX(-2px);
+            }
+            32% {
+                transform: translateX(2px);
+            }
+            40%,
+            90% {
+                transform: translateX(0);
+            }
+        }
+        .title-404 .zero-cute {
+            display: inline-block;
+            animation: zeroWink 3.5s ease-in-out infinite;
+            will-change: transform;
+        }
+        @keyframes zeroWink {
+            0%,
+            85%,
+            100% {
+                transform: scaleY(1);
+            }
+            90% {
+                transform: scaleY(0.25);
+            }
+            93% {
+                transform: scaleY(1.15);
+            }
+            96% {
+                transform: scaleY(0.8);
+            }
+        }
+
+        /* 丢失的emoji行 */
+        .lost-emoji-row {
+            font-size: clamp(28px, 4vw, 42px);
+            letter-spacing: 10px;
+            animation: lostFloat 2.8s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(255, 120, 100, 0.5));
+            will-change: transform;
+        }
+        @keyframes lostFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        /* 副标题 */
+        .subtitle-404 {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: #ff9966;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            text-shadow: 0 0 18px rgba(255, 80, 20, 0.7);
+            animation: subtitlePulse404 2.2s ease-in-out infinite;
+            line-height: 1.5;
+        }
+        .subtitle-404 .cute-whisper {
+            display: block;
+            font-size: 0.85em;
+            color: #ffb3a0;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-shadow: 0 0 10px rgba(255, 150, 130, 0.5);
+            margin-top: 4px;
+            font-style: italic;
+            animation: whisperFade 3s ease-in-out infinite;
+        }
+        @keyframes subtitlePulse404 {
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        @keyframes whisperFade {
+            0%,
+            70%,
+            100% {
+                opacity: 0.5;
+            }
+            80%,
+            90% {
+                opacity: 0.9;
+            }
+        }
+
+        /* 气泡提示 */
+        .floating-hint-404 {
+            position: relative;
+            font-size: 0.8rem;
+            color: rgba(255, 180, 150, 0.4);
+            letter-spacing: 0.05em;
+            font-style: italic;
+            animation: hintFade404 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes hintFade404 {
+            0%,
+            75%,
+            100% {
+                opacity: 0.25;
+            }
+            82%,
+            92% {
+                opacity: 0.7;
+            }
+        }
+
+        /* 按钮区域 */
+        .btn-group-404 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .home-btn {
+            position: relative;
+            display: inline-block;
+            padding: 16px 50px;
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: #fff;
+            background: linear-gradient(135deg, #cc0000 0%, #ff2200 30%, #cc0000 60%, #990000 100%);
+            border: 3px solid #ff6600;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            text-decoration: none;
+            box-shadow:
+                0 0 28px rgba(255, 30, 0, 0.65),
+                0 0 70px rgba(255, 50, 0, 0.35),
+                0 0 130px rgba(255, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 200, 150, 0.25);
+            transition: all 0.22s ease;
+            animation: btnGlow404 1.8s ease-in-out infinite;
+            overflow: hidden;
+            will-change: transform, box-shadow;
+            z-index: 1;
+        }
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, transparent 60%);
+            animation: btnShine404 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .home-btn:hover {
+            transform: scale(1.07);
+            box-shadow:
+                0 0 45px rgba(255, 30, 0, 0.85),
+                0 0 100px rgba(255, 50, 0, 0.5),
+                0 0 170px rgba(255, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 200, 150, 0.4);
+            border-color: #ffaa00;
+            color: #ffffcc;
+            letter-spacing: 0.12em;
+        }
+        .home-btn:active {
+            transform: scale(0.93);
+            box-shadow: 0 0 55px rgba(255, 30, 0, 0.95), 0 0 120px rgba(255, 50, 0, 0.6);
+            transition: all 0.06s ease;
+        }
+        @keyframes btnGlow404 {
+            0%,
+            100% {
+                box-shadow: 0 0 28px rgba(255, 30, 0, 0.65), 0 0 70px rgba(255, 50, 0, 0.35), 0 0 130px rgba(255, 0, 0, 0.2), inset 0 1px 0 rgba(255, 200, 150, 0.25);
+            }
+            50% {
+                box-shadow: 0 0 45px rgba(255, 40, 0, 0.85), 0 0 100px rgba(255, 60, 0, 0.5), 0 0 160px rgba(255, 10, 0, 0.3), inset 0 1px 0 rgba(255, 200, 150, 0.4);
+            }
+        }
+        @keyframes btnShine404 {
+            0% {
+                transform: translate(-30%, -30%) rotate(0deg);
+            }
+            100% {
+                transform: translate(30%, 30%) rotate(180deg);
+            }
+        }
+
+        /* 可爱副按钮 */
+        .cute-404-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 12px 28px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #d09090;
+            background: rgba(255, 240, 235, 0.75);
+            border: 2px solid #f0c8c8;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(200, 140, 140, 0.15);
+            backdrop-filter: blur(4px);
+            will-change: transform;
+            white-space: nowrap;
+        }
+        .cute-404-btn:hover {
+            background: #fff;
+            border-color: #e8b0b0;
+            color: #a06060;
+            box-shadow: 0 8px 24px rgba(200, 140, 140, 0.28);
+            transform: translateY(-3px);
+        }
+        .cute-404-btn:active {
+            transform: scale(0.93);
+            transition: all 0.08s ease;
+        }
+
+        /* 小动物列队 */
+        .mini-animals-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 3;
+        }
+        .mini-animal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            font-size: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 180, 170, 0.25);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+            animation: miniPopIn 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.7);
+            will-change: transform, opacity;
+            backdrop-filter: blur(2px);
+            position: relative;
+        }
+        .mini-animal.animating {
+            animation: miniPopIn 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        @keyframes miniPopIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.7);
+            }
+            65% {
+                opacity: 1;
+                transform: translateY(-5px) scale(1.08);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .mini-animal:hover {
+            transform: translateY(-10px) scale(1.2);
+            border-color: #ffb3ba;
+            background: rgba(255, 240, 235, 0.25);
+            box-shadow: 0 10px 28px rgba(200, 140, 140, 0.35);
+        }
+        .mini-animal:active {
+            transform: scale(0.85);
+            transition: all 0.1s ease;
+        }
+
+        /* 气泡（点击小动物时出现） */
+        .mini-bubble {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffb3a0;
+            white-space: nowrap;
+            z-index: 30;
+            animation: bubbleFloat404 1s ease-out forwards;
+            text-shadow: 0 0 10px rgba(255, 150, 130, 0.55);
+            will-change: transform, opacity;
+        }
+        @keyframes bubbleFloat404 {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(0.5);
+            }
+            35% {
+                opacity: 1;
+                transform: translate(-50%, -30px) scale(1.25);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -65px) scale(0.7);
+            }
+        }
+
+        /* 页脚 */
+        .footer-404 {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(200, 150, 140, 0.5);
+            letter-spacing: 0.05em;
+            padding: 20px 20px 30px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .footer-404 a {
+            color: rgba(200, 150, 140, 0.55);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-404 a:hover {
+            color: rgba(230, 170, 150, 0.8);
+        }
+
+        /* 滚动条 */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0000;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a1010;
+            border-radius: 10px;
+            border: 2px solid #0a0000;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a2020;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .mini-animal {
+                width: 40px;
+                height: 40px;
+                font-size: 22px;
+            }
+            .mini-animals-row {
+                gap: 8px;
+            }
+            .btn-group-404 {
+                gap: 10px;
+            }
+            .home-btn {
+                padding: 14px 36px;
+                font-size: 0.95rem;
+            }
+            .cute-404-btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+            .lost-emoji-row {
+                letter-spacing: 6px;
+            }
+        }
+        @media (max-width: 380px) {
+            .title-404 {
+                font-size: 3.5rem;
+            }
+            .mini-animal {
+                width: 34px;
+                height: 34px;
+                font-size: 18px;
+            }
+            .mini-animals-row {
+                gap: 6px;
+            }
+            .btn-group-404 {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景层 -->
+    <div class="bg-gradient-404"></div>
+    <div class="bg-pulse-404"></div>
+    <div class="bg-pulse-404"></div>
+    <div class="crack-lines-404">
+        <div class="crack-line-404"></div>
+        <div class="crack-line-404"></div>
+        <div class="crack-line-404"></div>
+        <div class="crack-line-404"></div>
+        <div class="crack-line-404"></div>
+        <div class="crack-line-404"></div>
+    </div>
+    <div class="warning-stripes-404"></div>
+    <div class="warning-stripes-404 bottom"></div>
+
+    <!-- 粒子容器 -->
+    <div class="spark-container-404" id="spark-container-404"></div>
+    <div class="falling-container-404" id="falling-container-404"></div>
+
+    <!-- 主内容 -->
+    <div class="main-content-404">
+        <!-- 丢失emoji行 -->
+        <div class="lost-emoji-row" aria-hidden="true">😿 💔 🔍 💔 😿</div>
+
+        <!-- 404 标题 -->
+        <h1 class="title-404" aria-label="404，页面未找到">
+            4<span class="zero-cute">0</span>4
+        </h1>
+
+        <!-- 副标题 -->
+        <p class="subtitle-404">
+            ⚡ 警告：此页面已神秘失踪 ⚡
+            <span class="cute-whisper">🤫 但小动物们会带你回家...</span>
+        </p>
+
+        <!-- 浮动提示 -->
+        <span class="floating-hint-404" aria-hidden="true">🐾 跟着爪印走 ~</span>
+
+        <!-- 按钮组 -->
+        <div class="btn-group-404">
+            <a href="./index.html" class="home-btn" aria-label="返回首页" tabindex="0">
+                🔥 返回首页
+            </a>
+            <a href="javascript:history.back()" class="cute-404-btn" aria-label="返回上一页" tabindex="0">
+                🐾 返回上页
+            </a>
+        </div>
+
+        <!-- 小动物列队 -->
+        <div class="mini-animals-row" id="mini-animals-row" role="list" aria-label="安慰小动物们"></div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-404">
+        🎀 404 · 其实也没那么可怕嘛 ~ 🎀<br>
+        © <script>document.write(new Date().getFullYear());</script>&nbsp;<a href="https://www.jimday.cn" target="_blank" rel="noopener">阿戴先生</a> · 版权所有
+    </div>
+
+    <script>
+        (function() {
+            // 安慰小动物池
+            const comfortAnimals = [
+                { emoji: '🐱', sound: '喵~ 别急呀~' },
+                { emoji: '🐶', sound: '汪！这边走！' },
+                { emoji: '🐰', sound: '蹦蹦~ 跟我来~' },
+                { emoji: '🐼', sound: '嗯~ 慢慢来~' },
+                { emoji: '🦊', sound: '嗷~ 我知道路~' },
+                { emoji: '🐥', sound: '叽叽！这里这里！' },
+                { emoji: '🐹', sound: '吱吱~ 别担心~' },
+                { emoji: '🦭', sound: '嗷呜~ 抱抱~' },
+                { emoji: '🐨', sound: '呼... 休息一下~' },
+                { emoji: '🐯', sound: '嗷呜！跟着我！' },
+                { emoji: '🦄', sound: '✨ 魔法指引 ✨' },
+                { emoji: '🐧', sound: '啾啾~ 这边~' },
+                { emoji: '🐮', sound: '哞~ 慢慢走~' },
+                { emoji: '🐷', sound: '哼哼~ 别慌~' },
+                { emoji: '🐸', sound: '呱呱！找到了！' },
+                { emoji: '🦝', sound: '咔咔~ 洗洗手~' },
+                { emoji: '🐿️', sound: '叽叽！快跟上！' },
+                { emoji: '🦥', sound: '慢... 悠... 悠...' },
+                { emoji: '🐳', sound: '呜~ 喷水啦~' },
+                { emoji: '🐑', sound: '咩~ 软软的~' },
+            ];
+
+            const miniRow = document.getElementById('mini-animals-row');
+            const DISPLAY_COUNT = 9;
+
+            // 随机选小动物
+            function getRandomComfortAnimals(count) {
+                const shuffled = [...comfortAnimals].sort(() => Math.random() - 0.5);
+                return shuffled.slice(0, count);
+            }
+
+            // 渲染小动物
+            function renderMiniAnimals() {
+                const animals = getRandomComfortAnimals(DISPLAY_COUNT);
+                miniRow.innerHTML = '';
+                animals.forEach((animal, index) => {
+                    const span = document.createElement('span');
+                    span.className = 'mini-animal';
+                    span.setAttribute('tabindex', '0');
+                    span.setAttribute('role', 'listitem');
+                    span.setAttribute('aria-label', `${animal.emoji} 安慰小动物，点击听叫声`);
+                    span.textContent = animal.emoji;
+                    span.style.animationDelay = `${index * 0.06}s`;
+                    span.dataset.sound = animal.sound;
+                    miniRow.appendChild(span);
+                });
+
+                // 触发入场动画
+                requestAnimationFrame(() => {
+                    const allMinis = miniRow.querySelectorAll('.mini-animal');
+                    allMinis.forEach((el, i) => {
+                        el.classList.add('animating');
+                        el.style.animationDelay = `${i * 0.06}s`;
+                    });
+                });
+            }
+
+            // 事件委托：点击小动物出现气泡
+            miniRow.addEventListener('click', handleMiniInteraction);
+            miniRow.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const animal = e.target.closest('.mini-animal');
+                    if (animal) {
+                        e.preventDefault();
+                        handleMiniInteraction({ target: animal });
+                    }
+                }
+            });
+
+            function handleMiniInteraction(event) {
+                const el = event.target.closest('.mini-animal');
+                if (!el) return;
+                const sound = el.dataset.sound || '~♡~';
+                showMiniBubble(el, sound);
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(12);
+                }
+                // 点击反馈动画
+                el.style.transition = 'all 0.1s ease';
+                el.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1)';
+                    el.style.transform = '';
+                }, 100);
+            }
+
+            function showMiniBubble(element, text) {
+                const bubble = document.createElement('span');
+                bubble.className = 'mini-bubble';
+                bubble.textContent = text;
+                const rect = element.getBoundingClientRect();
+                bubble.style.position = 'fixed';
+                bubble.style.left = (rect.left + rect.width / 2) + 'px';
+                bubble.style.top = (rect.top - 8) + 'px';
+                bubble.style.transform = 'translate(-50%, 0)';
+                document.body.appendChild(bubble);
+                bubble.addEventListener('animationend', () => bubble.remove());
+                setTimeout(() => { if (bubble.parentNode) bubble.remove(); }, 1100);
+            }
+
+            // 粒子系统
+            const sparkContainer = document.getElementById('spark-container-404');
+            const fallingContainer = document.getElementById('falling-container-404');
+            let animFrameId = null;
+            let lastSparkTime = 0;
+            let lastFallingTime = 0;
+            const SPARK_INTERVAL = 120;
+            const FALLING_INTERVAL = 400;
+
+            function createSparkParticle() {
+                const spark = document.createElement('div');
+                spark.className = 'spark-particle-404';
+                spark.style.left = Math.random() * 90 + '%';
+                spark.style.bottom = Math.random() * 40 + '%';
+                spark.style.setProperty('--drift', (Math.random() - 0.5) * 160 + 'px');
+                const size = Math.random() * 5 + 2;
+                spark.style.width = size + 'px';
+                spark.style.height = size + 'px';
+                spark.style.animationDuration = (Math.random() * 1.4 + 1) + 's';
+                const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ff2200', '#ffcc00', '#ff3311'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                spark.style.background = color;
+                spark.style.boxShadow = `0 0 ${Math.random()*10+6}px ${color}, 0 0 ${Math.random()*18+10}px ${color}`;
+                sparkContainer.appendChild(spark);
+                spark.addEventListener('animationend', () => spark.remove());
+                setTimeout(() => { if (spark.parentNode) spark.remove(); }, 1800);
+            }
+
+            const fallingEmojis = ['🌸', '❤️', '✨', '💕', '🩷', '🐾', '💖', '🌷', '⭐', '♡', '🦋', '🍀', '💝', '🌙'];
+            function createFallingParticle() {
+                const item = document.createElement('div');
+                item.className = 'falling-item-404';
+                item.textContent = fallingEmojis[Math.floor(Math.random() * fallingEmojis.length)];
+                item.style.left = Math.random() * 95 + '%';
+                item.style.setProperty('--fall-duration', (Math.random() * 7 + 8) + 's');
+                item.style.setProperty('--fall-size', (Math.random() * 16 + 12) + 'px');
+                item.style.setProperty('--fall-rotate', (Math.random() * 360) + 'deg');
+                item.style.setProperty('--fall-drift', (Math.random() - 0.5) * 180 + 'px');
+                item.style.animationDelay = Math.random() * 0.6 + 's';
+                fallingContainer.appendChild(item);
+                item.addEventListener('animationend', () => item.remove());
+                setTimeout(() => { if (item.parentNode) item.remove(); }, 10000);
+            }
+
+            function particleLoop(timestamp) {
+                if (!document.hidden) {
+                    if (timestamp - lastSparkTime >= SPARK_INTERVAL) {
+                        createSparkParticle();
+                        lastSparkTime = timestamp;
+                    }
+                    if (timestamp - lastFallingTime >= FALLING_INTERVAL) {
+                        createFallingParticle();
+                        lastFallingTime = timestamp;
+                    }
+                }
+                animFrameId = requestAnimationFrame(particleLoop);
+            }
+
+            function startParticleLoop() {
+                if (animFrameId) return;
+                lastSparkTime = performance.now();
+                lastFallingTime = performance.now();
+                animFrameId = requestAnimationFrame(particleLoop);
+            }
+
+            function stopParticleLoop() {
+                if (animFrameId) {
+                    cancelAnimationFrame(animFrameId);
+                    animFrameId = null;
+                }
+                sparkContainer.innerHTML = '';
+                fallingContainer.innerHTML = '';
+            }
+
+            // 键盘快捷操作
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    // Enter 返回首页
+                    const homeBtn = document.querySelector('.home-btn');
+                    if (homeBtn && document.activeElement !== homeBtn) {
+                        e.preventDefault();
+                        homeBtn.click();
+                    }
+                }
+                if (e.key === 'Escape') {
+                    // Esc 返回上页
+                    const backBtn = document.querySelector('.cute-404-btn');
+                    if (backBtn && document.activeElement !== backBtn) {
+                        e.preventDefault();
+                        if (document.referrer && document.referrer !== window.location.href) {
+                            window.history.back();
+                        } else {
+                            window.location.href = './index.html';
+                        }
+                    }
+                }
+            });
+
+            // 点击404标题刷新小动物
+            const title404 = document.querySelector('.title-404');
+            let titleClickCount = 0;
+            title404.addEventListener('click', () => {
+                titleClickCount++;
+                renderMiniAnimals();
+                if (titleClickCount >= 5 && titleClickCount % 5 === 0) {
+                    // 彩蛋：连续点击5次触发大量粒子
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(() => createSparkParticle(), i * 50);
+                    }
+                    for (let i = 0; i < 8; i++) {
+                        setTimeout(() => createFallingParticle(), i * 80);
+                    }
+                }
+                // 重置计数（3秒内不再点击则重置）
+                clearTimeout(title404._clickTimer);
+                title404._clickTimer = setTimeout(() => { titleClickCount = 0; }, 3000);
+            });
+
+            // 初始化
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function init() {
+                renderMiniAnimals();
+                if (!prefersReducedMotion) {
+                    startParticleLoop();
+                } else {
+                    console.log('检测到减少动画偏好，已关闭粒子效果。');
+                }
+                console.log('🐾 404页面已就绪 — 小动物们正在安慰迷路的你');
+                console.log('🔥 按 Enter 返回首页 | 按 Esc 返回上页 | 点击404数字刷新小动物');
+            }
+
+            init();
+
+            // 页面可见性变化时管理粒子
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    stopParticleLoop();
+                } else {
+                    if (!prefersReducedMotion) {
+                        startParticleLoop();
+                    }
+                }
+            });
+
+            // 窗口失焦时降低粒子频率（通过动态调整间隔）
+            let windowFocused = true;
+            window.addEventListener('blur', () => { windowFocused = false; });
+            window.addEventListener('focus', () => { windowFocused = true; });
+            // 重写粒子创建以考虑焦点状态
+            const origCreateSpark = createSparkParticle;
+            const origCreateFalling = createFallingParticle;
+            createSparkParticle = function() {
+                if (!windowFocused && Math.random() > 0.35) return; // 失焦时降低70%概率
+                origCreateSpark();
+            };
+            createFallingParticle = function() {
+                if (!windowFocused && Math.random() > 0.4) return;
+                origCreateFalling();
+            };
+        })();
+    </script>
+</body>
+</html>
