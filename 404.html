@@ -226,16 +226,17 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
+            height: 15px;
             background: repeating-linear-gradient(-45deg,
-                    #ffbb00,
-                    #ffbb00 16px,
-                    #1a1a1a 16px,
-                    #1a1a1a 32px);
-            background-size: 32px 8px;
+                    #ffbb00 0px,
+                    #ffbb00 21.21px,
+                    #2B2B2B 21.21px,
+                    #2B2B2B 42.42px);
+            background-size: 60px 15px;
             z-index: 2;
             pointer-events: none;
             animation: stripeSlide404 1.2s linear infinite;
+			will-change: background-position;
         }
         .warning-stripes-404.bottom {
             top: auto;
@@ -247,7 +248,7 @@
                 background-position: 0 0;
             }
             100% {
-                background-position: 32px 0;
+                background-position: 60px 0;
             }
         }
 
@@ -807,11 +808,8 @@
 
         <!-- 按钮组 -->
         <div class="btn-group-404">
-            <a href="./index.html" class="home-btn" aria-label="返回首页" tabindex="0">
+            <a href="/" class="home-btn" aria-label="返回首页" tabindex="0">
                 🔥 返回首页
-            </a>
-            <a href="javascript:history.back()" class="cute-404-btn" aria-label="返回上一页" tabindex="0">
-                🐾 返回上页
             </a>
         </div>
 
